@@ -1,0 +1,53 @@
+#Problem Link : https://www.hackerrank.com/challenges/frequency-queries/problem?isFullScreen=true&h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=dictionaries-hashmaps
+
+#Ans:
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the freqQuery function below.
+def freqQuery(queries):
+    count = dict()
+    result = list()
+
+    for q in queries:
+        if q[0] == 1:
+            try:
+                count[q[1]] += 1
+            except:
+                count[q[1]] = 1
+        elif q[0] == 2:
+            try:
+                count[q[1]] -= 1
+                if count[q[1]] == 0:
+                    del count[q[1]]
+            except:
+                continue
+        else:
+            if q[1] in set(count.values()):
+                result.append('1')
+            else:
+                result.append('0')
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input().strip())
+
+    queries = []
+
+    for _ in range(q):
+        queries.append(list(map(int, input().rstrip().split())))
+
+    ans = freqQuery(queries)
+
+    fptr.write('\n'.join(map(str, ans)))
+    fptr.write('\n')
+
+    fptr.close()
